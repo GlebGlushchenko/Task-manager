@@ -236,3 +236,7 @@ svg:hover {
 .tasks__btn:hover {
   background-color: rgb(126, 255, 176);
 }
+
+.complited__task-title {
+  text-align: center;
+}

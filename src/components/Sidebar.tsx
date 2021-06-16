@@ -39,8 +39,8 @@ const Sidebar: React.FC<SidebarPropsI> = ({
   const [currentTask, setCurrentTask] = React.useState<singleTaskType[]>([])
 
   const handlerForm = () => {
-    if (!title) {
-      alert('Please enter text title')
+    if (!title.trim() && !disc.trim()) {
+      alert('Please enter text title and disc')
     } else {
       handlerAddTask(title, disc, date)
       setTitle('')
@@ -90,7 +90,7 @@ const Sidebar: React.FC<SidebarPropsI> = ({
           {}
         </ul>
         <div>
-          <h2>Выполненые таски</h2>
+          <h2 className="complited__task-title">Complited Task</h2>
           <ul className="list">
             {tasks.map((task: singleTaskType) => {
               if (task.complete) {
@@ -106,7 +106,7 @@ const Sidebar: React.FC<SidebarPropsI> = ({
         <input
           className={'form__title'}
           placeholder={'Title'}
-          onChange={(e) => setTitle(e.currentTarget.value.trim())}
+          onChange={(e) => setTitle(e.currentTarget.value)}
           value={title}
           type="text"
           onKeyPress={(e) => {
@@ -116,7 +116,7 @@ const Sidebar: React.FC<SidebarPropsI> = ({
         <input
           className={'form__disc'}
           placeholder={'Disc'}
-          onChange={(e) => setDisc(e.currentTarget.value.trim())}
+          onChange={(e) => setDisc(e.currentTarget.value)}
           value={disc}
           type="text"
           onKeyPress={(e) => {
@@ -134,7 +134,7 @@ const Sidebar: React.FC<SidebarPropsI> = ({
           }}
         />
         <button className={'form__btn'} onClick={handlerForm}>
-          ADD
+          ADD TASK
         </button>
       </div>
     </SidebarStyle>

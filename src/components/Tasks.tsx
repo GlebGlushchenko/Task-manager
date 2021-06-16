@@ -17,14 +17,12 @@ const Tasks: React.FC<TasksPropsI> = ({ tasks, complitedTask, editTaskTitle, edi
   }
 
   const [title, setTitle] = React.useState()
-  // tasks[0].title
 
   const handlerChangeTitle = (e: any) => {
     setTitle(e.currentTarget.value)
   }
 
   const [disc, setDisc] = React.useState<string>()
-  // tasks[0].description
 
   const handlerChangeDisc = (e: any) => {
     setDisc(e.target.value)
@@ -99,7 +97,7 @@ const Tasks: React.FC<TasksPropsI> = ({ tasks, complitedTask, editTaskTitle, edi
                   onClick={() => {
                     handlerComplitTask(task.id)
                   }}>
-                  Выполнить задачу
+                  Complit Task
                 </button>
               </Route>
             </div>
