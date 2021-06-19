@@ -1,7 +1,7 @@
-# Start
+# Run app
 
 <p> npm start </p>
-<p> npm json-server</p>
+<p> npm run server</p>
 
 ## Stack
 

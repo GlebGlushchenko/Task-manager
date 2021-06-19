@@ -2,28 +2,10 @@ import React from 'react'
 
 import Task from './Task'
 import ComplitedTasks from './ComplitedTasks'
-import { singleTaskType, taskType } from '../Types/types'
+import { singleTaskType } from '../Types/types'
 import { SidebarPropsI } from '../Types/types'
-import styled from 'styled-components'
+import { SidebarStyle, StyleTaskList } from './StyledComponent/SidebarStyles'
 import { handlerKeyPress } from '../utils/keyCodeHandler'
-
-const SidebarStyle = styled.div`
-  background-color: #f4f6f8;
-  width: 350px;
-  border-right: 1px solid #f1f1f1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-`
-
-const StyleTask__list = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`
 
 const Sidebar: React.FC<SidebarPropsI> = ({
   tasks,
@@ -65,14 +47,13 @@ const Sidebar: React.FC<SidebarPropsI> = ({
 
   return (
     <SidebarStyle>
-      <StyleTask__list>
+      <StyleTaskList>
         <h2 className={'sidebar__title'}>{loading ? 'Loading...' : 'Tasks'}</h2>
         <ul className={'list'}>
-          {tasks.map((t) => {})}
           {tasks.length === 0 ? (
-            <h2>NO TAS2222KS</h2>
+            <h2>NO TASKs</h2>
           ) : (
-            tasks.sort(sortTask).map((task: taskType) => {
+            tasks.sort(sortTask).map((task: singleTaskType) => {
               if (!task.complete) {
                 return (
                   <Task
@@ -84,7 +65,7 @@ const Sidebar: React.FC<SidebarPropsI> = ({
                     taskSort={taskSort}
                   />
                 )
-              }
+              } else return null
             })
           )}
           {}
@@ -97,11 +78,11 @@ const Sidebar: React.FC<SidebarPropsI> = ({
                 return (
                   <ComplitedTasks key={task.id} handlerDeletTask={handlerDeletTask} task={task} />
                 )
-              }
+              } else return null
             })}
           </ul>
         </div>
-      </StyleTask__list>
+      </StyleTaskList>
       <div className={'form'}>
         <input
           className={'form__title'}

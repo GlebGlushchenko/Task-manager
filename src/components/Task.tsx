@@ -1,20 +1,21 @@
 import React from 'react'
 import styles from 'classnames'
 import { Link } from 'react-router-dom'
-import { singleTaskType, TaskPropsI, taskType } from '../Types/types'
+
+import { TaskPropsI, singleTaskType } from '../Types/types'
 import { TrashIcon } from './TrashIcon'
+
 export const helper = (str: string) => {
   return str.substr(0, 10) + '...'
 }
 const Task: React.FC<TaskPropsI> = ({
   task,
-
   taskSort,
   currentTask,
   setCurrentTask,
   handlerDeletTask,
 }) => {
-  const dragStartHandler = (e: any, task: taskType) => {
+  const dragStartHandler = (e: any, task: singleTaskType) => {
     setCurrentTask(task)
   }
   const dragEndHandler = (e: any) => {
@@ -24,7 +25,7 @@ const Task: React.FC<TaskPropsI> = ({
     e.target.style.opacity = 0.5
     e.preventDefault()
   }
-  const dropHandler = (e: any, task: taskType) => {
+  const dropHandler = (e: any, task: singleTaskType) => {
     e.preventDefault()
     taskSort(task, currentTask)
   }

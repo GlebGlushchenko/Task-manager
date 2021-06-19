@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from 'classnames'
 import { Link } from 'react-router-dom'
+
 import { ComplitedTasksPropsI } from '../Types/types'
 import { TrashIcon } from '../components/TrashIcon'
 import { helper } from './Task'
@@ -21,7 +22,6 @@ const ComplitedTasks: React.FC<ComplitedTasksPropsI> = ({ task, handlerDeletTask
 
         <span className={'list__date'}>{task.date} &#x23F1;</span>
         <TrashIcon id={task.id} handlerDeletTask={handlerDeletTask} />
-        {/* <button onClick={(e) => handlerDeletTask(task.id, e)}>Delete</button> */}
       </Link>
     </li>
   )

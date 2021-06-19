@@ -1,18 +1,19 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
-import penIcon from '../assets/pencil.png'
+
 import { TasksPropsI } from '../Types/types'
+import penIcon from '../assets/pencil.png'
 
 const Tasks: React.FC<TasksPropsI> = ({ tasks, complitedTask, editTaskTitle, editTaskDisc }) => {
   const [editTitle, setEditTitle] = React.useState(false)
 
-  const handlerEditModTitle = (id?: number) => {
+  const handlerEditModTitle = () => {
     setEditTitle(!editTitle)
   }
 
   const [editDisc, setEditDisc] = React.useState(false)
 
-  const handlerEditModDisc = (id?: number) => {
+  const handlerEditModDisc = () => {
     setEditDisc(!editDisc)
   }
 
@@ -33,13 +34,17 @@ const Tasks: React.FC<TasksPropsI> = ({ tasks, complitedTask, editTaskTitle, edi
   }
 
   const helperChangeTitle = (id: number) => {
-    handlerEditModTitle()
-    editTaskTitle(id, title)
+    if (title) {
+      handlerEditModTitle()
+      editTaskTitle(id, title)
+    } else alert('Enter title text!')
   }
 
   const helperChangeDisc = (id: number) => {
-    handlerEditModDisc()
-    editTaskDisc(id, disc)
+    if (disc) {
+      handlerEditModDisc()
+      editTaskDisc(id, disc)
+    } else alert('Enter disc text!')
   }
 
   return (
@@ -64,7 +69,7 @@ const Tasks: React.FC<TasksPropsI> = ({ tasks, complitedTask, editTaskTitle, edi
                   )}
                   <img
                     onClick={() => {
-                      handlerEditModTitle(task.id)
+                      handlerEditModTitle()
                     }}
                     className="todo__task__title-icon"
                     src={penIcon}
@@ -84,7 +89,7 @@ const Tasks: React.FC<TasksPropsI> = ({ tasks, complitedTask, editTaskTitle, edi
 
                   <img
                     onClick={() => {
-                      handlerEditModDisc(task.id)
+                      handlerEditModDisc()
                     }}
                     className="todo__task__disc-icon"
                     src={penIcon}

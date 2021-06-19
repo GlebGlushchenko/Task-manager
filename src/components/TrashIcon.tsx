@@ -1,7 +1,8 @@
 import React from 'react'
-import { TrashIconProps } from '../Types/types'
 
-export const TrashIcon: React.FC<TrashIconProps> = ({ id, handlerDeletTask }) => {
+import { TrashIconPropsI } from '../Types/types'
+
+export const TrashIcon: React.FC<TrashIconPropsI> = ({ id, handlerDeletTask }) => {
   return (
     <svg
       onClick={(e) => {
