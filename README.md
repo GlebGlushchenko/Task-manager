@@ -7,9 +7,14 @@
 
 <hr>
 
-<p> styled-components </p>
-<p> react-router-dom </p>
-<p> json-server </p>
-<p> classnames </p>
-<p>axios</p>
-<p>typescript</p>
+[react-router-dom](https://github.com/ReactTraining/react-router/tree/master/packages/react-router-dom)
+<br>
+[classnames](https://github.com/JedWatson/classnames#readme)
+<br>
+[axios](https://github.com/axios/axios)
+<br>
+[json-server](https://github.com/typicode/json-server)
+<br>
+[typescript](https://create-react-app.dev/docs/adding-typescript/)
+<br>
+[styled-components](https://github.com/styled-components/styled-components)
