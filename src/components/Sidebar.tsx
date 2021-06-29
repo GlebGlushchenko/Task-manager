@@ -4,8 +4,28 @@ import Task from './Task'
 import ComplitedTasks from './ComplitedTasks'
 import { singleTaskType } from '../Types/types'
 import { SidebarPropsI } from '../Types/types'
-import { SidebarStyle, StyleTaskList } from './StyledComponent/SidebarStyles'
 import { handlerKeyPress } from '../utils/keyCodeHandler'
+import styled from 'styled-components'
+import Button from '@material-ui/core/Button'
+import TextField from '@material-ui/core/TextField'
+
+export const SidebarStyle = styled.div`
+  background-color: #f4f6f8;
+  width: 350px;
+  border-right: 1px solid #f1f1f1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+`
+
+export const StyleTaskList = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
 
 const Sidebar: React.FC<SidebarPropsI> = ({
   tasks,
@@ -24,7 +44,7 @@ const Sidebar: React.FC<SidebarPropsI> = ({
     if (!title.trim() && !disc.trim()) {
       alert('Please enter text title and disc')
     } else {
-      handlerAddTask(title, disc, date)
+      handlerAddTask(title, disc, parseInt(date))
       setTitle('')
       setDisc('')
       setDate('')
@@ -84,8 +104,8 @@ const Sidebar: React.FC<SidebarPropsI> = ({
         </div>
       </StyleTaskList>
       <div className={'form'}>
-        <input
-          className={'form__title'}
+        <TextField
+          // className={'form__title'}
           placeholder={'Title'}
           onChange={(e) => setTitle(e.currentTarget.value)}
           value={title}
@@ -94,8 +114,8 @@ const Sidebar: React.FC<SidebarPropsI> = ({
             handlerKeyPress(e, handlerForm)
           }}
         />
-        <input
-          className={'form__disc'}
+        <TextField
+          // className={'form__disc'}
           placeholder={'Disc'}
           onChange={(e) => setDisc(e.currentTarget.value)}
           value={disc}
@@ -104,19 +124,20 @@ const Sidebar: React.FC<SidebarPropsI> = ({
             handlerKeyPress(e, handlerForm)
           }}
         />
-        <input
+        <TextField
           className={'form__date'}
           placeholder={'Date'}
           onChange={(e) => setDate(e.currentTarget.value.trim())}
           value={date}
           type="number"
+          variant="outlined"
           onKeyPress={(e) => {
             handlerKeyPress(e, handlerForm)
           }}
         />
-        <button className={'form__btn'} onClick={handlerForm}>
+        <Button variant="contained" color="primary" onClick={handlerForm}>
           ADD TASK
-        </button>
+        </Button>
       </div>
     </SidebarStyle>
   )

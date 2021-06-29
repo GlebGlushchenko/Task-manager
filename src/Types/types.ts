@@ -3,13 +3,13 @@ export type singleTaskType ={
     id: number,
     complete: boolean ,
     description: string,
-    date: string | number,
+    date:  number,
     order: number,
    
   }
     export interface SidebarPropsI {
     tasks: singleTaskType[]
-    handlerAddTask(title: string, disc: string, date: string): void
+    handlerAddTask(title: string, disc: string, date: number): void
     deleteTask(id: number): void
     taskSort(task: singleTaskType, currentTask: singleTaskType): void
     handlerDeletTask?(id:number):void,
@@ -43,4 +43,30 @@ export type singleTaskType ={
   export interface TrashIconPropsI{
       id:number
     handlerDeletTask:(e:any,id:number)=>void
+  }
+
+  export interface TodoProps{
+    tasks:singleTaskType[],
+    handlerAddTask(title: string, disc: string, date: number): void
+    handleClickOpen:(id:number)=>void
+  }
+
+  export interface ModalPorps{
+    // tasks:singleTaskType[],
+    open:any,
+    handleClose:()=>void,
+    id:number|null,
+    title:string,
+    description:string
+    t:any
+    handlerComplited:(id:any)=>void
+    handlerRemove:(id:any)=>void,
+    editTaskTitle(id: any,text:string| undefined):void,
+    editTaskDisc(id: any ,text: string | undefined):void
+    setOpen:any
+    date:number
+  }
+
+  export interface ComplitedProps{
+    tasks:singleTaskType[]
   }
