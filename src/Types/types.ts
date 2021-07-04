@@ -45,12 +45,22 @@ export type singleTaskType ={
     handlerDeletTask:(e:any,id:number)=>void
   }
 
-  export interface TodoProps{
+  export interface TodosProps{
     tasks:singleTaskType[],
     handlerAddTask(title: string, disc: string, date: number): void
     handleClickOpen:(id:number)=>void
+    taskSort(task:singleTaskType,currentTask:singleTaskType):void,
   }
 
+
+  
+  export interface TodoProps{
+    task:any,
+    handleClickOpen:(id:number)=>void
+    taskSort(task:singleTaskType,currentTask:singleTaskType):void,
+    currentTask:any, 
+    setCurrentTask:any,
+  }
   export interface ModalPorps{
     // tasks:singleTaskType[],
     open:any,
@@ -69,4 +79,6 @@ export type singleTaskType ={
 
   export interface ComplitedProps{
     tasks:singleTaskType[]
+    handleClickOpen:(id:number)=>void
+   
   }

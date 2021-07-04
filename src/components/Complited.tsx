@@ -56,7 +56,10 @@ const useStyle = makeStyles((theme) => ({
   textTodoBtn: { width: 100 },
 }))
 
-const Complited: React.FC<ComplitedProps> = ({ tasks }) => {
+const Complited: React.FC<ComplitedProps> = ({ tasks, handleClickOpen }) => {
+  const helper = (str: string) => {
+    return str.substr(0, 10) + '...'
+  }
   const classes = useStyle()
   return (
     <Grid className={classes.itemWrapper} container>
@@ -69,8 +72,10 @@ const Complited: React.FC<ComplitedProps> = ({ tasks }) => {
           {tasks.map((task) => {
             if (task.complete) {
               return (
-                <Box>
-                  <Paper className={classes.todo}>{task.title}</Paper>
+                <Box onClick={() => handleClickOpen(task.id)}>
+                  <Paper className={classes.todo}>
+                    {task.title.length >= 15 ? helper(task.title) : task.title}
+                  </Paper>
                 </Box>
               )
             }

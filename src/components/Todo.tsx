@@ -1,4 +1,5 @@
 import React from 'react'
+import clsx from 'clsx'
 import {
   AppBar,
   Container,
@@ -13,30 +14,11 @@ import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import { TodoProps } from '../Types/types'
 
+import { handlerKeyPress } from '../utils/keyCodeHandler'
+
+import { singleTaskType } from '../Types/types'
+
 const useStyle = makeStyles((theme) => ({
-  itemWrapper: { display: 'flex' },
-  items: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-    margin: theme.spacing(2),
-    padding: 15,
-  },
-  item: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    width: '100%',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  container: {
-    marginTop: 100,
-    marginBottom: 100,
-    display: 'flex',
-    minHeight: 400,
-    height: 'auto',
-    justifyContent: 'space-around',
-  },
   todo: {
     display: 'flex',
     cursor: 'pointer',
@@ -47,90 +29,62 @@ const useStyle = makeStyles((theme) => ({
     marginTop: 10,
     padding: 10,
     textAlign: 'center',
+
     '&:hover': {
       backgroundColor: '#eeeeee',
     },
   },
-  btnWrapper: { display: 'flex', flexDirection: 'column', alignItems: 'center', padding: 10 },
-  textTodoInp: { marginBottom: 20, marginTop: 20, width: 250 },
-  textTodoBtn: { width: 100 },
-  date: { width: 50, marginBottom: 20 },
+
+  endTime: {
+    backgroundColor: '#df7d57',
+    '&:hover': {
+      backgroundColor: '#e7ac94',
+    },
+  },
 }))
 
-const Todo: React.FC<TodoProps> = ({ tasks, handlerAddTask, handleClickOpen }) => {
+const Todo: React.FC<TodoProps> = ({
+  task,
+  handleClickOpen,
+  currentTask,
+  taskSort,
+  setCurrentTask,
+}) => {
   const classes = useStyle()
-
+  const dragStartHandler = (e: any, task: any) => {
+    setCurrentTask(task)
+  }
+  const dragEndHandler = (e: any) => {
+    e.target.style.opacity = 1
+  }
+  const dragOverHandler = (e: any) => {
+    e.target.style.opacity = 0.5
+    e.preventDefault()
+  }
+  const dropHandler = (e: any, task: any) => {
+    e.preventDefault()
+    taskSort(task, currentTask)
+  }
   const helper = (str: string) => {
     return str.substr(0, 10) + '...'
   }
-
-  const [title, setTitle] = React.useState<string>('')
-  const handlerTextInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(event.target.value)
-  }
-
-  const [date, setDate] = React.useState<string>('')
-  const handlerDate = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setDate(event.target.value)
-  }
-
-  const handlerForm = () => {
-    if (!title.trim()) {
-      alert('Please enter text title and disc')
-    } else {
-      handlerAddTask(title, 'sda', parseInt(date))
-      setTitle('')
-      setDate('')
-    }
-  }
   return (
-    <Grid className={classes.itemWrapper} container>
-      <Paper className={classes.items}>
-        <Grid className={classes.item} item md={4}>
-          <Box>
-            <h2>Todo</h2>
-          </Box>
-          {tasks.map((todo) => {
-            if (!todo.complete) {
-              return (
-                <Box
-                  onClick={() => {
-                    handleClickOpen(todo.id)
-                  }}>
-                  <Paper key={todo.id} className={classes.todo}>
-                    {todo.title.length >= 15 ? helper(todo.title) : todo.title}
-                  </Paper>
-                </Box>
-              )
-            }
-          })}
-
-          <Box className={classes.btnWrapper}>
-            <TextField
-              label="Text"
-              value={title}
-              onChange={handlerTextInput}
-              className={classes.textTodoInp}
-              type="text"
-            />
-            <TextField
-              value={date}
-              onChange={handlerDate}
-              className={classes.date}
-              type="number"
-              label="Date"
-            />
-            <Button
-              onClick={handlerForm}
-              className={classes.textTodoBtn}
-              variant="contained"
-              color="primary">
-              SEND
-            </Button>
-          </Box>
-        </Grid>
+    <Box
+      onClick={() => {
+        handleClickOpen(task.id)
+      }}>
+      <Paper
+        draggable={true}
+        onDragStart={(e) => dragStartHandler(e, task)}
+        onDragLeave={(e) => dragEndHandler(e)}
+        onDragEnd={(e) => dragEndHandler(e)}
+        onDragOver={(e) => dragOverHandler(e)}
+        onDrop={(e) => dropHandler(e, task)}
+        key={task.id}
+        className={clsx(classes.todo, task.date <= 3 && classes.endTime)}>
+        {task.title.length >= 15 ? helper(task.title) : task.title}
       </Paper>
-    </Grid>
+    </Box>
   )
 }
 export default Todo

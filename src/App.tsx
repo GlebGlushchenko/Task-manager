@@ -16,7 +16,7 @@ import {
   Grid,
 } from '@material-ui/core'
 import TextField from '@material-ui/core/TextField'
-import Todo from './components/Todo'
+import Todos from './components/Todos'
 import InProgress from './components/InProgress'
 import Complited from './components/Complited'
 import Modal from './components/Modal/Modal'
@@ -75,7 +75,7 @@ const App: React.FC = () => {
       complete: false,
       description: disc,
       date: !date ? 3 : date,
-      order: ++order,
+      order: Date.now(),
     }
 
     tasksAPI.addTask(task).then(() => {
@@ -169,11 +169,16 @@ const App: React.FC = () => {
 
         <Container className={classes.container}>
           {tasks && (
-            <Todo handleClickOpen={handleClickOpen} tasks={tasks} handlerAddTask={handlerAddTask} />
+            <Todos
+              handleClickOpen={handleClickOpen}
+              tasks={tasks}
+              handlerAddTask={handlerAddTask}
+              taskSort={taskSort}
+            />
           )}
 
           <InProgress />
-          <Complited tasks={tasks} />
+          <Complited tasks={tasks} handleClickOpen={handleClickOpen} />
         </Container>
       </Container>
       {tasks.map((t) => {

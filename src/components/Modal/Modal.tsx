@@ -13,6 +13,7 @@ import MuiDialogContent from '@material-ui/core/DialogContent'
 import IconButton from '@material-ui/core/IconButton'
 import CloseIcon from '@material-ui/icons/Close'
 import { withStyles } from '@material-ui/core/styles'
+import { handlerKeyPress } from '../../utils/keyCodeHandler'
 
 const useStyle = makeStyles((theme) => ({
   titleWrapper: { padding: 20, margin: 20 },
@@ -118,6 +119,9 @@ const Modal: React.FC<ModalPorps> = ({
               onBlur={() => helperChangeTitle()}
               onChange={handlerChangeTitle}
               value={modalTitle}
+              onKeyPress={(e) => {
+                handlerKeyPress(e, helperChangeTitle)
+              }}
             />
           </Box>
         )}
@@ -141,6 +145,9 @@ const Modal: React.FC<ModalPorps> = ({
                 onBlur={() => helperChangeDisc()}
                 onChange={handlerChangeDisc}
                 value={disc}
+                onKeyPress={(e) => {
+                  handlerKeyPress(e, helperChangeDisc)
+                }}
               />
             </Box>
           )}

@@ -66,16 +66,16 @@ const InProgress = () => {
             <h2>InProgress</h2>
           </Box>
           <Box>
-            <Paper className={classes.todo}>Todo Titl22222e</Paper>
+            <Paper className={classes.todo}>Todo Title</Paper>
           </Box>
           <Box>
-            <Paper className={classes.todo}>Todo Titl22222e</Paper>
+            <Paper className={classes.todo}>Todo Title</Paper>
           </Box>
           <Box>
-            <Paper className={classes.todo}>Todo Titl22222e</Paper>
+            <Paper className={classes.todo}>Todo Title</Paper>
           </Box>
           <Box>
-            <Paper className={classes.todo}>Todo Titl22222e</Paper>
+            <Paper className={classes.todo}>Todo Title</Paper>
           </Box>
 
           <Box className={classes.btnWrapper}>

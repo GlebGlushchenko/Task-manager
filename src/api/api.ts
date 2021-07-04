@@ -13,7 +13,7 @@ const instance = axios.create({
 
 export const tasksAPI = {
   getTasks() {
-    return instance.get('/tasks?&_sort=date&_order=asc').then((res) => {
+    return instance.get('/tasks').then((res) => {
       return res.data
     })
   },
