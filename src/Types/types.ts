@@ -63,18 +63,18 @@ export type singleTaskType ={
   }
   export interface ModalPorps{
     // tasks:singleTaskType[],
-    open:any,
-    handleClose:()=>void,
-    id:number|null,
-    title:string,
-    description:string
-    t:any
+    open?:any,
+    handleClose?:()=>void,
+    id?:number|null,
+    title?:string,
+    description?:string
+    t?:any
     handlerComplited:(id:any)=>void
     handlerRemove:(id:any)=>void,
     editTaskTitle(id: any,text:string| undefined):void,
     editTaskDisc(id: any ,text: string | undefined):void
-    setOpen:any
-    date:number
+    setOpen?:any
+    date?:number
   }
 
   export interface ComplitedProps{

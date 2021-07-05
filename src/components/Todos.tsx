@@ -114,6 +114,7 @@ const Todos: React.FC<TodosProps> = ({ tasks, handlerAddTask, handleClickOpen, t
             if (!todo.complete) {
               return (
                 <Todo
+                  key={todo.id}
                   handleClickOpen={handleClickOpen}
                   setCurrentTask={setCurrentTask}
                   currentTask={currentTask}

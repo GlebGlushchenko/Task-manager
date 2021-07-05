@@ -1,17 +1,8 @@
 import React from 'react'
 import { ComplitedProps } from '../Types/types'
-import {
-  AppBar,
-  Container,
-  Toolbar,
-  Typography,
-  Box,
-  makeStyles,
-  Paper,
-  Grid,
-} from '@material-ui/core'
-import TextField from '@material-ui/core/TextField'
-import Button from '@material-ui/core/Button'
+import { Box, makeStyles, Paper, Grid } from '@material-ui/core'
+import { subString } from '../utils/subString'
+import { BrowserRouter as Router, Link } from 'react-router-dom'
 const useStyle = makeStyles((theme) => ({
   itemWrapper: { display: 'flex' },
   items: {
@@ -57,45 +48,27 @@ const useStyle = makeStyles((theme) => ({
 }))
 
 const Complited: React.FC<ComplitedProps> = ({ tasks, handleClickOpen }) => {
-  const helper = (str: string) => {
-    return str.substr(0, 10) + '...'
-  }
   const classes = useStyle()
   return (
     <Grid className={classes.itemWrapper} container>
       <Paper className={classes.items}>
         <Grid className={classes.item} item md={4}>
-          {/* {tasks && ( */}
           <Box>
             <h2>Complited</h2>
           </Box>
           {tasks.map((task) => {
             if (task.complete) {
               return (
-                <Box onClick={() => handleClickOpen(task.id)}>
-                  <Paper className={classes.todo}>
-                    {task.title.length >= 15 ? helper(task.title) : task.title}
-                  </Paper>
-                </Box>
+                <Link to={`/${task.title}`}>
+                  <Box key={task.id} onClick={() => handleClickOpen(task.id)}>
+                    <Paper className={classes.todo}>
+                      {task.title.length >= 15 ? subString(task.title) : task.title}
+                    </Paper>
+                  </Box>
+                </Link>
               )
             }
           })}
-
-          {/* <Box className={classes.btnWrapper}>
-            <TextField className={classes.textTodoInp} type="text" />
-            <Button className={classes.textTodoBtn} variant="contained" color="primary">
-              SEND
-            </Button>
-          </Box> */}
-
-          {/* <Sidebar
-              taskSort={taskSort}
-              deleteTask={deleteTask}
-              handlerAddTask={handlerAddTask}
-              tasks={tasks}
-              loading={loading}
-            /> */}
-          {/* )} */}
         </Grid>
       </Paper>
     </Grid>

@@ -1,58 +1,21 @@
 import React from 'react'
 
 import { tasksAPI } from './api/api'
-import Sidebar from './components/Sidebar'
-import Tasks from './components/Tasks'
 import { singleTaskType } from './Types/types'
-import styled from 'styled-components'
-import {
-  AppBar,
-  Container,
-  Toolbar,
-  Typography,
-  Box,
-  makeStyles,
-  Paper,
-  Grid,
-} from '@material-ui/core'
-import TextField from '@material-ui/core/TextField'
+import { AppBar, Container, Toolbar, Typography, Box, makeStyles } from '@material-ui/core'
 import Todos from './components/Todos'
 import InProgress from './components/InProgress'
 import Complited from './components/Complited'
 import Modal from './components/Modal/Modal'
-import Dialog from '@material-ui/core/Dialog'
-import DialogTitle from '@material-ui/core/DialogTitle'
-import Button from '@material-ui/core/Button'
-import DialogActions from '@material-ui/core/DialogActions'
-import DialogContent from '@material-ui/core/DialogContent'
-import DialogContentText from '@material-ui/core/DialogContentText'
 
-// const AppWrapper = styled.div`
-//   height: 100vh;
-//   padding: 10px;
-//   display: flex;
-//   width: 1200px;
-//   position: absolute;
-//   top: 50%;
-//   left: 50%;
-//   transform: translate(-50%, -50%);
-//   -webkit-transform: translate(-50%, -50%);
-//   -moz-transform: translate(-50%, -50%);
-//   -ms-transform: translate(-50%, -50%);
-//   -o-transform: translate(-50%, -50%);
-//   box-shadow: 5px 2px 10px #f4f6f8;
-//   border-radius: 10px;
-//   -webkit-border-radius: 10px;
-//   -moz-border-radius: 10px;
-//   -ms-border-radius: 10px;
-//   -o-border-radius: 10px;
-// `
-
-let order = 0
+import { BrowserRouter as Router, Route, useLocation } from 'react-router-dom'
 
 const App: React.FC = () => {
   const [tasks, setTasks] = React.useState<singleTaskType[]>([])
   const [loading, setLoading] = React.useState(false)
+  const [open, setOpen] = React.useState(false)
+  const [id, setId] = React.useState(null)
+  const location = useLocation()
   const getTask = () => {
     setLoading(true)
     return tasksAPI
@@ -134,8 +97,7 @@ const App: React.FC = () => {
       justifyContent: 'space-around',
     },
   }))
-  const [open, setOpen] = React.useState(false)
-  const [id, setId] = React.useState(null)
+
   const classes = useStyle()
   const handleClickOpen = (id) => {
     setId(id)
@@ -152,8 +114,9 @@ const App: React.FC = () => {
   }
 
   const handlerRemove = (id) => {
-    deleteTask(id)
+    if (window.confirm('You want to delete the task?')) deleteTask(id)
   }
+
   return (
     <>
       <Container>
@@ -182,22 +145,23 @@ const App: React.FC = () => {
         </Container>
       </Container>
       {tasks.map((t) => {
-        if (t.id === id) {
+        if (t.id === id || location.pathname.substr(1) === t.title) {
           return (
-            <Modal
-              id={id}
-              description={t.description}
-              title={t.title}
-              open={open}
-              handleClose={handleClose}
-              t={t}
-              handlerComplited={handlerComplited}
-              handlerRemove={handlerRemove}
-              editTaskTitle={editTaskTitle}
-              editTaskDisc={editTaskDisc}
-              setOpen={setOpen}
-              date={t.date}
-            />
+            <Route path={`/${t.title}`}>
+              <Modal
+                id={t.id}
+                open={open}
+                handleClose={handleClose}
+                handlerComplited={handlerComplited}
+                handlerRemove={handlerRemove}
+                editTaskTitle={editTaskTitle}
+                editTaskDisc={editTaskDisc}
+                setOpen={setOpen}
+                title={t.title}
+                description={t.description}
+                date={t.date}
+              />
+            </Route>
           )
         }
       })}

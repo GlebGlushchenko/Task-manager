@@ -1,22 +1,11 @@
 import React from 'react'
 import clsx from 'clsx'
-import {
-  AppBar,
-  Container,
-  Toolbar,
-  Typography,
-  Box,
-  makeStyles,
-  Paper,
-  Grid,
-} from '@material-ui/core'
-import TextField from '@material-ui/core/TextField'
-import Button from '@material-ui/core/Button'
+import { Typography, Box, makeStyles, Paper } from '@material-ui/core'
 import { TodoProps } from '../Types/types'
 
-import { handlerKeyPress } from '../utils/keyCodeHandler'
+import { subString } from '../utils/subString'
 
-import { singleTaskType } from '../Types/types'
+import { BrowserRouter as Router, Link } from 'react-router-dom'
 
 const useStyle = makeStyles((theme) => ({
   todo: {
@@ -65,25 +54,25 @@ const Todo: React.FC<TodoProps> = ({
     e.preventDefault()
     taskSort(task, currentTask)
   }
-  const helper = (str: string) => {
-    return str.substr(0, 10) + '...'
-  }
+
   return (
     <Box
       onClick={() => {
         handleClickOpen(task.id)
       }}>
-      <Paper
-        draggable={true}
-        onDragStart={(e) => dragStartHandler(e, task)}
-        onDragLeave={(e) => dragEndHandler(e)}
-        onDragEnd={(e) => dragEndHandler(e)}
-        onDragOver={(e) => dragOverHandler(e)}
-        onDrop={(e) => dropHandler(e, task)}
-        key={task.id}
-        className={clsx(classes.todo, task.date <= 3 && classes.endTime)}>
-        {task.title.length >= 15 ? helper(task.title) : task.title}
-      </Paper>
+      <Link to={`/${task.title}`}>
+        <Paper
+          draggable={true}
+          onDragStart={(e) => dragStartHandler(e, task)}
+          onDragLeave={(e) => dragEndHandler(e)}
+          onDragEnd={(e) => dragEndHandler(e)}
+          onDragOver={(e) => dragOverHandler(e)}
+          onDrop={(e) => dropHandler(e, task)}
+          key={task.id}
+          className={clsx(classes.todo, task.date <= 3 && classes.endTime)}>
+          <Typography> {task.title.length >= 15 ? subString(task.title) : task.title}</Typography>
+        </Paper>
+      </Link>
     </Box>
   )
 }

@@ -3,16 +3,12 @@ import TextField from '@material-ui/core/TextField'
 import Dialog from '@material-ui/core/Dialog'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import Button from '@material-ui/core/Button'
-import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
 import { ModalPorps } from '../../Types/types'
 import { Box, makeStyles, Paper, Grid } from '@material-ui/core'
-import MuiDialogTitle from '@material-ui/core/DialogTitle'
-import MuiDialogContent from '@material-ui/core/DialogContent'
 import IconButton from '@material-ui/core/IconButton'
 import CloseIcon from '@material-ui/icons/Close'
-import { withStyles } from '@material-ui/core/styles'
 import { handlerKeyPress } from '../../utils/keyCodeHandler'
 
 const useStyle = makeStyles((theme) => ({
@@ -57,7 +53,7 @@ const Modal: React.FC<ModalPorps> = ({
 }) => {
   const classes = useStyle()
   const [editTitle, setEditTitle] = React.useState(false)
-
+  console.log(open)
   const handlerEditModTitle = () => {
     setEditTitle(!editTitle)
   }
@@ -92,12 +88,16 @@ const Modal: React.FC<ModalPorps> = ({
       editTaskDisc(id, disc)
     } else alert('Enter disc text!')
   }
+  // React.useEffect(() => {
+  //   setOpen(true)
+  // }, [loc.key])
 
   return (
     <Dialog aria-labelledby="form-dialog-title" open={open} onClose={handleClose}>
       <IconButton aria-label="close" className={classes.closeButton} onClick={() => setOpen(false)}>
         <CloseIcon />
       </IconButton>
+
       <Box className={classes.box}>
         {!editTitle ? (
           <Box className={classes.titleWrapper}>
@@ -162,17 +162,17 @@ const Modal: React.FC<ModalPorps> = ({
           Close
         </Button>
         <Button
+          onClick={() => handlerRemove(id)}
           className={classes.btn}
           variant="contained"
-          color="secondary"
-          onClick={() => handlerRemove(id)}>
+          color="secondary">
           Delete
         </Button>
         <Button
+          onClick={() => handlerComplited(id)}
           className={classes.btn}
           variant="contained"
-          color="primary"
-          onClick={() => handlerComplited(id)}>
+          color="primary">
           Complited
         </Button>
       </Box>
