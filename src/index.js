@@ -60,11 +60,10 @@ code {
 `
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Router>
-      <Global />
-      <App />
-    </Router>
-  </React.StrictMode>,
+  <Router>
+    <Global />
+    <App />
+  </Router>,
+
   document.getElementById('root'),
 )

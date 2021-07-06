@@ -50,6 +50,7 @@ export type singleTaskType ={
     handlerAddTask(title: string, disc: string, date: number): void
     handleClickOpen:(id:number)=>void
     taskSort(task:singleTaskType,currentTask:singleTaskType):void,
+    loading:boolean
   }
 
 
@@ -75,10 +76,12 @@ export type singleTaskType ={
     editTaskDisc(id: any ,text: string | undefined):void
     setOpen?:any
     date?:number
+    complete:boolean
   }
 
   export interface ComplitedProps{
     tasks:singleTaskType[]
     handleClickOpen:(id:number)=>void
+    loading:boolean
    
   }

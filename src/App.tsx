@@ -8,7 +8,7 @@ import InProgress from './components/InProgress'
 import Complited from './components/Complited'
 import Modal from './components/Modal/Modal'
 
-import { BrowserRouter as Router, Route, useLocation } from 'react-router-dom'
+import { Route, useLocation } from 'react-router-dom'
 
 const App: React.FC = () => {
   const [tasks, setTasks] = React.useState<singleTaskType[]>([])
@@ -137,17 +137,18 @@ const App: React.FC = () => {
               tasks={tasks}
               handlerAddTask={handlerAddTask}
               taskSort={taskSort}
+              loading={loading}
             />
           )}
 
           <InProgress />
-          <Complited tasks={tasks} handleClickOpen={handleClickOpen} />
+          <Complited loading={loading} tasks={tasks} handleClickOpen={handleClickOpen} />
         </Container>
       </Container>
       {tasks.map((t) => {
         if (t.id === id || location.pathname.substr(1) === t.title) {
           return (
-            <Route path={`/${t.title}`}>
+            <Route key={t.id} path={`/${t.title}`}>
               <Modal
                 id={t.id}
                 open={open}
@@ -160,10 +161,11 @@ const App: React.FC = () => {
                 title={t.title}
                 description={t.description}
                 date={t.date}
+                complete={t.complete}
               />
             </Route>
           )
-        }
+        } else return null
       })}
     </>
   )

@@ -5,7 +5,7 @@ import { TodoProps } from '../Types/types'
 
 import { subString } from '../utils/subString'
 
-import { BrowserRouter as Router, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const useStyle = makeStyles((theme) => ({
   todo: {
@@ -53,6 +53,7 @@ const Todo: React.FC<TodoProps> = ({
   const dropHandler = (e: any, task: any) => {
     e.preventDefault()
     taskSort(task, currentTask)
+    e.target.style.opacity = 1
   }
 
   return (

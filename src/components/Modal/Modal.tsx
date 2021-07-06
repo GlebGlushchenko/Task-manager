@@ -6,14 +6,31 @@ import Button from '@material-ui/core/Button'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
 import { ModalPorps } from '../../Types/types'
-import { Box, makeStyles, Paper, Grid } from '@material-ui/core'
+import { Box, makeStyles } from '@material-ui/core'
 import IconButton from '@material-ui/core/IconButton'
 import CloseIcon from '@material-ui/icons/Close'
 import { handlerKeyPress } from '../../utils/keyCodeHandler'
+import Tooltip from '@material-ui/core/Tooltip'
 
 const useStyle = makeStyles((theme) => ({
-  titleWrapper: { padding: 20, margin: 20 },
-  discWrapper: { padding: 20 },
+  titleWrapper: {
+    cursor: 'pointer',
+    padding: 20,
+    margin: 20,
+    borderRadius: 10,
+    '&:hover': {
+      backgroundColor: '#f1efee',
+    },
+  },
+  discWrapper: {
+    cursor: 'pointer',
+    margin: 20,
+    padding: 20,
+    borderRadius: 10,
+    '&:hover': {
+      backgroundColor: '#f1efee',
+    },
+  },
   titleInput: { width: 300, margin: 20, padding: 20 },
   discInput: { width: 200, margin: 20, padding: 20 },
   btnWrapper: {
@@ -50,10 +67,10 @@ const Modal: React.FC<ModalPorps> = ({
   id,
   setOpen,
   date,
+  complete,
 }) => {
   const classes = useStyle()
   const [editTitle, setEditTitle] = React.useState(false)
-  console.log(open)
   const handlerEditModTitle = () => {
     setEditTitle(!editTitle)
   }
@@ -101,12 +118,15 @@ const Modal: React.FC<ModalPorps> = ({
       <Box className={classes.box}>
         {!editTitle ? (
           <Box className={classes.titleWrapper}>
-            <DialogTitle
-              id="form-dialog-title"
-              className={'modal__title'}
-              onDoubleClick={handlerEditModTitle}>
-              {title}
-            </DialogTitle>
+            {' '}
+            <Tooltip title="Edit">
+              <DialogTitle
+                id="form-dialog-title"
+                className={'modal__title'}
+                onDoubleClick={handlerEditModTitle}>
+                {title}
+              </DialogTitle>
+            </Tooltip>
           </Box>
         ) : (
           <Box>
@@ -131,9 +151,11 @@ const Modal: React.FC<ModalPorps> = ({
         <Box>
           {!editDisc ? (
             <Box className={classes.discWrapper}>
-              <DialogContentText onDoubleClick={handlerEditModDisc} id="alert-dialog-description">
-                {description}
-              </DialogContentText>
+              <Tooltip title="Edit">
+                <DialogContentText onDoubleClick={handlerEditModDisc} id="alert-dialog-description">
+                  {description}
+                </DialogContentText>
+              </Tooltip>
             </Box>
           ) : (
             <Box>
@@ -168,13 +190,15 @@ const Modal: React.FC<ModalPorps> = ({
           color="secondary">
           Delete
         </Button>
-        <Button
-          onClick={() => handlerComplited(id)}
-          className={classes.btn}
-          variant="contained"
-          color="primary">
-          Complited
-        </Button>
+        {!complete && (
+          <Button
+            onClick={() => handlerComplited(id)}
+            className={classes.btn}
+            variant="contained"
+            color="primary">
+            Complited
+          </Button>
+        )}
       </Box>
     </Dialog>
   )

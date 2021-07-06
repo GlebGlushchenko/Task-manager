@@ -1,15 +1,5 @@
 import React from 'react'
-import clsx from 'clsx'
-import {
-  AppBar,
-  Container,
-  Toolbar,
-  Typography,
-  Box,
-  makeStyles,
-  Paper,
-  Grid,
-} from '@material-ui/core'
+import { Box, makeStyles, Paper, Grid } from '@material-ui/core'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import { TodosProps } from '../Types/types'
@@ -71,7 +61,13 @@ const useStyle = makeStyles((theme) => ({
   },
 }))
 
-const Todos: React.FC<TodosProps> = ({ tasks, handlerAddTask, handleClickOpen, taskSort }) => {
+const Todos: React.FC<TodosProps> = ({
+  tasks,
+  handlerAddTask,
+  handleClickOpen,
+  taskSort,
+  loading,
+}) => {
   const [currentTask, setCurrentTask] = React.useState<singleTaskType[]>([])
   const classes = useStyle()
 
@@ -110,6 +106,7 @@ const Todos: React.FC<TodosProps> = ({ tasks, handlerAddTask, handleClickOpen, t
           <Box>
             <h2>Todo</h2>
           </Box>
+          {loading && <h2>Loading......</h2>}
           {tasks.sort(sortTask).map((todo) => {
             if (!todo.complete) {
               return (
@@ -122,7 +119,7 @@ const Todos: React.FC<TodosProps> = ({ tasks, handlerAddTask, handleClickOpen, t
                   taskSort={taskSort}
                 />
               )
-            }
+            } else return null
           })}
 
           <Box className={classes.btnWrapper}>
