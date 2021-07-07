@@ -1,21 +1,21 @@
 import React from 'react'
 
 import { tasksAPI } from './api/api'
+
 import { singleTaskType } from './Types/types'
 import { AppBar, Container, Toolbar, Typography, Box, makeStyles } from '@material-ui/core'
+import { Route } from 'react-router-dom'
+
 import Todos from './components/Todos'
 import InProgress from './components/InProgress'
 import Complited from './components/Complited'
 import Modal from './components/Modal/Modal'
-
-import { Route, useLocation } from 'react-router-dom'
 
 const App: React.FC = () => {
   const [tasks, setTasks] = React.useState<singleTaskType[]>([])
   const [loading, setLoading] = React.useState(false)
   const [open, setOpen] = React.useState(false)
   const [id, setId] = React.useState(null)
-  const location = useLocation()
   const getTask = () => {
     setLoading(true)
     return tasksAPI
@@ -34,7 +34,7 @@ const App: React.FC = () => {
   const handlerAddTask = (title: string, disc: string, date: number) => {
     const task: singleTaskType = {
       title: title,
-      id: Date.now(),
+      id: Date.now().toString(),
       complete: false,
       description: disc,
       date: !date ? 3 : date,
@@ -46,25 +46,25 @@ const App: React.FC = () => {
     })
   }
 
-  const deleteTask = (id: number) => {
+  const deleteTask = (id: string) => {
     tasksAPI.deleteTask(id).then(() => {
       getTask()
     })
   }
 
-  const complitedTask = (id: number) => {
+  const complitedTask = (id: string) => {
     tasksAPI.completeTask(id).then(() => {
       getTask()
     })
   }
 
-  const editTaskTitle = (id: any, text: string) => {
+  const editTaskTitle = (id: string, text: string) => {
     tasksAPI.editTitle(id, text).then(() => {
       getTask()
     })
   }
 
-  const editTaskDisc = (id: any, text: string) => {
+  const editTaskDisc = (id: string, text: string) => {
     tasksAPI.editDisc(id, text).then(() => {
       getTask()
     })
@@ -87,18 +87,7 @@ const App: React.FC = () => {
       }),
     )
   }
-  const useStyle = makeStyles((theme) => ({
-    container: {
-      marginTop: 100,
-      marginBottom: 100,
-      display: 'flex',
-      minHeight: 250,
-      height: 100,
-      justifyContent: 'space-around',
-    },
-  }))
 
-  const classes = useStyle()
   const handleClickOpen = (id) => {
     setId(id)
     setOpen(true)
@@ -116,6 +105,19 @@ const App: React.FC = () => {
   const handlerRemove = (id) => {
     if (window.confirm('You want to delete the task?')) deleteTask(id)
   }
+
+  const useStyle = makeStyles((theme) => ({
+    container: {
+      marginTop: 100,
+      marginBottom: 100,
+      display: 'flex',
+      minHeight: 250,
+      height: 100,
+      justifyContent: 'space-around',
+    },
+  }))
+
+  const classes = useStyle()
 
   return (
     <>
@@ -145,10 +147,10 @@ const App: React.FC = () => {
           <Complited loading={loading} tasks={tasks} handleClickOpen={handleClickOpen} />
         </Container>
       </Container>
-      {tasks.map((t) => {
-        if (t.id === id || location.pathname.substr(1) === t.title) {
+      {tasks.map((t: singleTaskType) => {
+        if (t.id === id) {
           return (
-            <Route key={t.id} path={`/${t.title}`}>
+            <Route key={t.id} path={'/' + t.id}>
               <Modal
                 id={t.id}
                 open={open}

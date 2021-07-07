@@ -3,6 +3,7 @@ import React from 'react'
 import { Box, makeStyles, Paper, Grid } from '@material-ui/core'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
+
 const useStyle = makeStyles((theme) => ({
   itemWrapper: { display: 'flex' },
   items: {
@@ -52,7 +53,6 @@ const InProgress = () => {
     <Grid className={classes.itemWrapper} container>
       <Paper className={classes.items}>
         <Grid className={classes.item} item md={4}>
-          {/* {tasks && ( */}
           <Box>
             <h2>InProgress</h2>
           </Box>
@@ -75,15 +75,6 @@ const InProgress = () => {
               SEND
             </Button>
           </Box>
-
-          {/* <Sidebar
-              taskSort={taskSort}
-              deleteTask={deleteTask}
-              handlerAddTask={handlerAddTask}
-              tasks={tasks}
-              loading={loading}
-            /> */}
-          {/* )} */}
         </Grid>
       </Paper>
     </Grid>

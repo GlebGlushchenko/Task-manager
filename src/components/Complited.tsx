@@ -1,8 +1,11 @@
 import React from 'react'
 import { ComplitedProps } from '../Types/types'
 import { Box, makeStyles, Paper, Grid } from '@material-ui/core'
-import { subString } from '../utils/subString'
+
 import { Link } from 'react-router-dom'
+
+import { subString } from '../utils/subString'
+
 const useStyle = makeStyles((theme) => ({
   itemWrapper: { display: 'flex' },
   items: {
@@ -55,13 +58,12 @@ const Complited: React.FC<ComplitedProps> = ({ tasks, handleClickOpen, loading }
         <Grid className={classes.item} item md={4}>
           <Box>
             <h2>Complited</h2>
-            {loading && <h2>Loading...</h2>}
           </Box>
 
           {tasks.map((task) => {
             if (task.complete) {
               return (
-                <Link key={task.id} to={`/${task.title}`}>
+                <Link key={task.id} to={`/${task.id}`}>
                   <Box onClick={() => handleClickOpen(task.id)}>
                     <Paper className={classes.todo}>
                       {task.title.length >= 15 ? subString(task.title) : task.title}

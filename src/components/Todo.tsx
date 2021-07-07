@@ -61,7 +61,7 @@ const Todo: React.FC<TodoProps> = ({
       onClick={() => {
         handleClickOpen(task.id)
       }}>
-      <Link to={`/${task.title}`}>
+      <Link to={`/${task.id}`}>
         <Paper
           draggable={true}
           onDragStart={(e) => dragStartHandler(e, task)}

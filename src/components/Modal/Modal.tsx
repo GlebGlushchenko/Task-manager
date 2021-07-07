@@ -1,16 +1,19 @@
 import React from 'react'
+
 import TextField from '@material-ui/core/TextField'
 import Dialog from '@material-ui/core/Dialog'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import Button from '@material-ui/core/Button'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
-import { ModalPorps } from '../../Types/types'
 import { Box, makeStyles } from '@material-ui/core'
 import IconButton from '@material-ui/core/IconButton'
 import CloseIcon from '@material-ui/icons/Close'
-import { handlerKeyPress } from '../../utils/keyCodeHandler'
 import Tooltip from '@material-ui/core/Tooltip'
+
+import { ModalPorps } from '../../Types/types'
+
+import { handlerKeyPress } from '../../utils/keyCodeHandler'
 
 const useStyle = makeStyles((theme) => ({
   titleWrapper: {
@@ -70,6 +73,7 @@ const Modal: React.FC<ModalPorps> = ({
   complete,
 }) => {
   const classes = useStyle()
+
   const [editTitle, setEditTitle] = React.useState(false)
   const handlerEditModTitle = () => {
     setEditTitle(!editTitle)
@@ -118,12 +122,11 @@ const Modal: React.FC<ModalPorps> = ({
       <Box className={classes.box}>
         {!editTitle ? (
           <Box className={classes.titleWrapper}>
-            {' '}
             <Tooltip title="Edit">
               <DialogTitle
                 id="form-dialog-title"
                 className={'modal__title'}
-                onDoubleClick={handlerEditModTitle}>
+                onClick={handlerEditModTitle}>
                 {title}
               </DialogTitle>
             </Tooltip>
@@ -152,7 +155,7 @@ const Modal: React.FC<ModalPorps> = ({
           {!editDisc ? (
             <Box className={classes.discWrapper}>
               <Tooltip title="Edit">
-                <DialogContentText onDoubleClick={handlerEditModDisc} id="alert-dialog-description">
+                <DialogContentText onClick={handlerEditModDisc} id="alert-dialog-description">
                   {description}
                 </DialogContentText>
               </Tooltip>

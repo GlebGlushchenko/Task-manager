@@ -1,13 +1,15 @@
 import React from 'react'
+
 import { Box, makeStyles, Paper, Grid } from '@material-ui/core'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
+
 import { TodosProps } from '../Types/types'
+import { singleTaskType } from '../Types/types'
+
 import Todo from './Todo'
 
 import { handlerKeyPress } from '../utils/keyCodeHandler'
-
-import { singleTaskType } from '../Types/types'
 
 const useStyle = makeStyles((theme) => ({
   itemWrapper: { display: 'flex' },
@@ -106,7 +108,7 @@ const Todos: React.FC<TodosProps> = ({
           <Box>
             <h2>Todo</h2>
           </Box>
-          {loading && <h2>Loading......</h2>}
+
           {tasks.sort(sortTask).map((todo) => {
             if (!todo.complete) {
               return (

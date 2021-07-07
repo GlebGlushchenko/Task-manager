@@ -24,27 +24,27 @@ export const tasksAPI = {
       ...task
     })
   },
-  deleteTask(id:number) {
+  deleteTask(id:string) {
     return instance.delete(`/tasks/${id}`)
   },
 
-  completeTask(id:number) {
+  completeTask(id:string) {
     return instance.patch(`/tasks/${id}`, {
       complete: true,
     })
   },
 
-  editTitle(id:number, text:string) {
+  editTitle(id:string, text:string) {
     return instance.patch(`/tasks/${id}`, {
       title: text,
     })
   },
-  editDisc(id:number, text:string) {
+  editDisc(id:string, text:string) {
     return instance.patch(`/tasks/${id}`, {
       description: text,
     })
   },
-  sortTask(id:number, order:number) {
+  sortTask(id:string, order:number) {
     return instance.patch(`/tasks/${id}`, {
       order: order,
     })
